@@ -3,7 +3,7 @@ import os
 import argparse
 import multiprocessing as mp
 from loader.encoder import XMLEncoder
-from active_learning_model.framework import AL_Workflow
+from active_learning_model import EMEWS_active_learning_sampling
 
     
 def main():
@@ -23,7 +23,12 @@ def main():
     multiprocessing_queue_out = mp.Queue()
     abm_outputs = []
     params_to_evaluate = data
-    model = AL_Workflow()
+
+    #TODO: replace with actual parameters
+    max_iter = 100
+    obj_function = False
+    coo_metric = False
+
 
     #TODO: fill in exit condition
     exit_condition = True
@@ -33,10 +38,10 @@ def main():
         multiprocessing_queue.put(item)
 
     while exit_condition == False:
-        abm_outputs = evaluate(multiprocessing_queue,multiprocessing_queue_out )
+        abm_outputs = evaluate(multiprocessing_queue,multiprocessing_queue_out)
 
-    #TODO: implement active learning function
-    params_to_evaluate.add(AL_Workflow.al_algorithm(abm_outputs))
+    model = EMEWS_active_learning_sampling(abm_outputs, obj_function, max_iter, coo_metric)
+    params_to_evaluate.add(model.query(abm_outputs, 20))
 
 def evaluate(multiprocessing_queue, multiprocessing_queue_out):
     abm_outputs = []

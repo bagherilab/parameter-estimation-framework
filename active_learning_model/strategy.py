@@ -5,12 +5,14 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 class Strategy:
-    def __init__(self, dataset, net):
+    def __init__(self, dataset, net=None):
         self.dataset = dataset
         self.net = net
 
     def query(self, n):
         pass
+
+    '''
 
     def update(self, pos_idxs, neg_idxs=None):
         self.dataset.labeled_idxs[pos_idxs] = True
@@ -40,3 +42,4 @@ class Strategy:
     def get_embeddings(self, data):
         embeddings = self.net.get_embeddings(data)
         return embeddings
+'''

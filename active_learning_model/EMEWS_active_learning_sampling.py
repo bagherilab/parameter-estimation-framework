@@ -7,8 +7,8 @@ import random
 
 class ActiveLearning(Strategy):
 
-    def __init__(self, dataset, net, obj_function, max_iter, cross_validation_metric):
-        super(ActiveLearning, self).__init__(dataset, net)
+    def __init__(self, dataset, obj_function, max_iter, cross_validation_metric):
+        super(ActiveLearning, self).__init__(dataset)
         self.obj_f = obj_function
         self.eval_params = []
         self.regr = RandomForestRegressor(max_depth=2, random_state=0)
