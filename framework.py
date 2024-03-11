@@ -57,7 +57,7 @@ def evaluate(multiprocessing_queue, multiprocessing_queue_out):
     
     # Retrieve and print the processed results from the output queue
     while not multiprocessing_queue_out.empty():
-        decoded_output = XMLEncoder.decode(multiprocessing_queue_out.get())
+        decoded_output = multiprocessing_queue_out.get()
         abm_outputs.add(decoded_output)
     
     return abm_outputs
@@ -76,6 +76,7 @@ def worker(queue, queue_out ):
 ### TODO: replace this with calling abm
 def process_queue_item(item):
     XMLEncoder.encode(item)
+    #abm_outputs = XMLEncoder.decode(abm_call)
     return NotImplementedError
 
 if __name__ == '__main__':
